@@ -12,7 +12,7 @@ public class LoginTest {
   @Test
   void mainPageShouldBeDisplayedAfterSuccessLogin() {
     Selenide.open(CFG.frontUrl(), LoginPage.class)
-        .fillLoginPage("duck", "12345")
+        .fillLoginPage("test", "12341234")
         .submit()
         .checkThatPageLoaded();
   }
