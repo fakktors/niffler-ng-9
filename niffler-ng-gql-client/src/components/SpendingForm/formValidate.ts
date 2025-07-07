@@ -17,7 +17,7 @@ export const SPENDING_INITIAL_STATE: SpendingData = {
     amount: 0,
     description: "",
     currency: CurrencyValues.Rub,
-    spendDate: new Date(),
+    spendDate: dayjs(new Date()),
     category: {
         name: "",
     },
@@ -55,8 +55,12 @@ export const convertSpendingToFormData = (spending: SpendingData): SpendingFormD
     return Object.keys(spending)
         .filter(key => key !== "__typename")
         .reduce((acc, key) => {
+            let value = spending[key as keyof Spending];
+            if (key === "spendDate") {
+                value = dayjs(value);
+            }
             acc[key] = {
-                value: spending[key as keyof Spending],
+                value,
                 error: false,
                 errorMessage: "",
             };
