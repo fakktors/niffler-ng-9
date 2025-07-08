@@ -1,4 +1,4 @@
-package guru.qa.niffler.test;
+package guru.qa.niffler.test.web;
 
 import com.codeborne.selenide.Selenide;
 import guru.qa.niffler.config.Config;
@@ -25,8 +25,7 @@ public class SpendingTest {
     final String newDescription = ":)";
 
     Selenide.open(CFG.frontUrl(), LoginPage.class)
-        .fillLoginPage("test", "12341234")
-        .submit()
+        .successLogin("test", "12341234")
         .checkThatPageLoaded()
         .editSpending(spendJson.description())
         .setNewSpendingDescription(newDescription)
