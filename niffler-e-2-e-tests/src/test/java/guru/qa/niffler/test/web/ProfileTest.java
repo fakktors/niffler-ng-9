@@ -19,7 +19,6 @@ public class ProfileTest {
       username = "test",
       archived = true
   )
-
   @Test
   void archivedCategoryShouldPresentInCategoriesList(CategoryJson category) {
     Selenide.open(CFG.frontUrl(), LoginPage.class)
@@ -33,7 +32,6 @@ public class ProfileTest {
   @Category(
       username = "test"
   )
-
   @Test
   void activeCategoryShouldPresentInCategoriesList(CategoryJson category) {
     Selenide.open(CFG.frontUrl(), LoginPage.class)

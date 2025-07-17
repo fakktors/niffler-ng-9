@@ -23,7 +23,6 @@ public class UserProfilePage {
   private final ElementsCollection bubblesArchived = $$(".MuiChip-filled.MuiChip-colorDefault");
 
   public UserProfilePage setName(String name) {
-    nameInput.clear();
     nameInput.setValue(name);
     return this;
   }

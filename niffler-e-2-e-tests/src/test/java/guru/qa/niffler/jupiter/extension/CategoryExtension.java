@@ -23,21 +23,6 @@ public class CategoryExtension implements
   private final SpendApiClient spendApiClient = new SpendApiClient();
 
   @Override
-  public void afterTestExecution(ExtensionContext context) {
-    CategoryJson category = context.getStore(NAMESPACE).get(context.getUniqueId(), CategoryJson.class);    
-    if (!category.archived()) {
-      category = new CategoryJson(
-          category.id(),
-          category.name(),
-          category.username(),
-          true
-      );
-
-      spendApiClient.updateCategory(category);
-    }
-  }
-
-  @Override
   public void beforeEach(ExtensionContext context) {
     AnnotationSupport.findAnnotation(context.getRequiredTestMethod(), Category.class)
         .ifPresent(annotation -> {
@@ -65,6 +50,21 @@ public class CategoryExtension implements
               created
           );
         });
+  }
+
+  @Override
+  public void afterTestExecution(ExtensionContext context) {
+    CategoryJson category = context.getStore(NAMESPACE).get(context.getUniqueId(), CategoryJson.class);
+    if (!category.archived()) {
+      category = new CategoryJson(
+          category.id(),
+          category.name(),
+          category.username(),
+          true
+      );
+
+      spendApiClient.updateCategory(category);
+    }
   }
 
   @Override
