@@ -3,6 +3,7 @@ package guru.qa.niffler.jupiter.extension;
 import com.github.javafaker.Faker;
 import guru.qa.niffler.api.SpendApiClient;
 import guru.qa.niffler.jupiter.annotation.Category;
+import static guru.qa.niffler.jupiter.extension.TestMethodContextExtension.context;
 import guru.qa.niffler.model.CategoryJson;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -74,6 +75,12 @@ public class CategoryExtension implements
 
   @Override
   public CategoryJson resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-    return extensionContext.getStore(NAMESPACE).get(extensionContext.getUniqueId(), CategoryJson.class);
+    return createdCategory();
+  }
+
+  public static CategoryJson createdCategory() {
+    final ExtensionContext methodContext = context();
+    return methodContext.getStore(NAMESPACE)
+        .get(methodContext.getUniqueId(), CategoryJson.class);
   }
 }
